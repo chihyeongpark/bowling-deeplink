@@ -3,6 +3,10 @@
     {
       "source": "/join",
       "destination": "/index.html"
+    },
+    {
+      "source": "/.well-known/assetlinks.json",
+      "destination": "/assetlinks.json"
     }
   ]
 }
