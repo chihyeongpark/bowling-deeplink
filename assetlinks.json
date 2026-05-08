@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.ddongmoo.bowlingmanager",
+      "sha256_cert_fingerprints": [
+        "C9:F7:C5:D8:B8:5E:61:45:76:AA:57:AB:0F:90:B2:96:88:77:7B:A5:CC:A9:ED:6F:CE:54:E3:E2:6D:6B:D7:B1","51:7B:C4:33:73:35:E2:6D:92:DD:90:24:2E:EE:31:68:DB:A0:EF:B1:DF:F1:A6:C1:A2:16:46:E5:AD:4A:E5:00"
+      ]
+    }
+  }
+]
