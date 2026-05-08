@@ -2,9 +2,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>볼링 매니저 방 입장</title>
     <script>
-        window.onload = function() {
+        function launchApp() {
             // 현재 URL에서 파라미터(roomId, pass)를 그대로 가져와서 커스텀 스킴으로 변환
             var urlParams = new URLSearchParams(window.location.search);
             var roomId = urlParams.get('roomId');
@@ -17,16 +18,49 @@
                 // 앱 실행 시도
                 window.location.href = intentUrl;
                 
-                // 앱이 없어서 실행 안 되면 2초 뒤에 플레이스토어로 이동
-                setTimeout(function() {
-                    window.location.href = "https://play.google.com/store/apps/details?id=com.ddongmoo.bowlingmanager";
+                // 앱이 없어서 실행 안 되면 2초 뒤에 플레이스토어로 이동하는 타이머
+                var fallbackTimer = setTimeout(function() {
+                    // 이중 방어: 시간이 경과했을 때 현재 브라우저 탭이 계속 활성화되어 있는지(앱 실행 실패) 확인
+                    if (!document.hidden) {
+                        window.location.href = "market://details?id=com.ddongmoo.bowlingmanager";
+                    }
                 }, 2000);
+
+                // 페이지 숨김(앱 실행 성공) 감지 시 타이머 강제 해제
+                document.addEventListener('visibilitychange', function() {
+                    if (document.hidden) {
+                        clearTimeout(fallbackTimer);
+                    }
+                });
+            } else {
+                alert("잘못된 입장 정보입니다.");
             }
+        }
+
+        // 페이지 로드 시 자동 진입 시도
+        window.onload = function() {
+            launchApp();
         };
     </script>
+    <style>
+        .btn { 
+            padding: 15px 30px; 
+            font-size: 18px; 
+            color: white; 
+            background-color: #007AFF; 
+            border: none; 
+            border-radius: 8px; 
+            text-decoration: none; 
+            display: inline-block; 
+            margin-top: 20px; 
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+    </style>
 </head>
-<body style="text-align: center; margin-top: 50px;">
-    <h2>볼링 매니저 앱을 실행 중입니다...</h2>
-    <p>잠시만 기다려주세요.</p>
+<body style="text-align: center; margin-top: 50px; font-family: sans-serif;">
+    <h2>볼링 매니저</h2>
+    <p>앱을 실행 중입니다.<br><br>만약 화면이 자동으로 넘어가지 않으면<br>아래 버튼을 눌러주세요.</p>
+    <button class="btn" onclick="launchApp()">앱으로 입장하기</button>
 </body>
 </html>
