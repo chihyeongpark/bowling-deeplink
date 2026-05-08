@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>볼링 매니저 방 입장</title>
+    <script>
+        window.onload = function() {
+            // 현재 URL에서 파라미터(roomId, pass)를 그대로 가져와서 커스텀 스킴으로 변환
+            var urlParams = new URLSearchParams(window.location.search);
+            var roomId = urlParams.get('roomId');
+            var pass = urlParams.get('pass');
+            
+            if(roomId && pass) {
+                // 앱 강제 호출 (안드로이드 intent 방식)
+                var intentUrl = "intent://join?roomId=" + roomId + "&pass=" + pass + "#Intent;scheme=bowlingmanager;package=com.ddongmoo.bowlingmanager;end";
+                
+                // 앱 실행 시도
+                window.location.href = intentUrl;
+                
+                // 앱이 없어서 실행 안 되면 2초 뒤에 플레이스토어로 이동
+                setTimeout(function() {
+                    window.location.href = "https://play.google.com/store/apps/details?id=com.ddongmoo.bowlingmanager";
+                }, 2000);
+            }
+        };
+    </script>
+</head>
+<body style="text-align: center; margin-top: 50px;">
+    <h2>볼링 매니저 앱을 실행 중입니다...</h2>
+    <p>잠시만 기다려주세요.</p>
+</body>
+</html>
